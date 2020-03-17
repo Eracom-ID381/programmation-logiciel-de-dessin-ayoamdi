@@ -3,3 +3,7 @@ img {
     zoom: 150%;
     opacity: 0.3;
 }
+
+body {
+    background: (22, 251, 252);
+}
