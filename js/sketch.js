@@ -1,33 +1,32 @@
-let triangleSize = 20;
-
-let h = 60;
-let s = 255;
-let b = 255;
+let triangleSize = 80;
+let osc, freq, amp;
+let h = 0;
+let s = 0;
+let b = 0;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    background(232, 254, 252);
     colorMode(HSB, 255);
+    background(175, 9, 100);
+    osc = new p5.Oscillator('sine');
 }
 
 function draw() {
     strokeWeight(10);
-    stroke(0, 0, 0);
     stroke(h, s, b);
 
     if (mouseIsPressed) {
-        // line(mouseX, mouseY, pmouseX, pmouseY);
-        triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
-        triangleSize = triangleSize + 1;
+        line(mouseX, mouseY, pmouseX, pmouseY);
+
     }
 
-    //texte//
-    strokeWeight(1);
-    textSize(8);
-    fill(15, 0, 100);
-    text('1', 383, 134);
-
     penguinPoints();
+
+    freq = map(mouseX, 0, width, 100, 500);
+    freq = map(mouseY, 0, height, 0, 1);
+    osc.freq(freq, 0.1);
+    osc.amp(amp, 0.1);
+
 }
 
 function keyPressed() {
@@ -48,13 +47,20 @@ function keyPressed() {
         s = 0;
         b = 255;
     }
+
+    if (keyCode === BACKSPACE) {
+        h = 232;
+        s = 254;
+        b = 252;
+    }
+
+    if (keyCode === "W") {
+        strokeWeight = strokeWeight + 8;
+    }
 }
 
 function mousePressed() {
-    //strokeWeight(8);
-    //stroke(247, 243, 22);
-    //line(mouseX, mouseY, mouseX, mouseY);
-
+    osc.Start();
 }
 
 function windowResized() {
@@ -63,7 +69,8 @@ function windowResized() {
 }
 
 function mouseReleased() {
-    triangleSize = 20;
+    osc.stop();
+
 }
 
 function penguinPoints() {
@@ -121,9 +128,8 @@ function penguinPoints() {
     point(465, 165);
     point(440, 140);
     point(415, 130);
-    //
-    //points à l'intérieur du penguin//
 
+    //points à l'intérieur du penguin//
     point(405, 485);
     point(400, 540);
     point(405, 585);
@@ -142,33 +148,16 @@ function penguinPoints() {
     fill(15, 0, 100);
     text('1', 383, 134);
 
-    //
 }
 
-function keyPressed() {
-    if (keyCode === LEFT_ARROW) {
-        s = 0;
-        b = 0;
-    }
+//if (keyCode === DOWN_ARROW && mousePressed) {
+//    noStroke();
+//    fill(173, 17, 100);
+//    opacity(0.4);
+//    line(mouseX, mouseY, pmouseX, pmouseY) = triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
+//}
 
-    if (keyCode === RIGHT_ARROW) {
-        h = 40;
-        s = 255;
-        b = 255;
 
-    }
-
-    if (keyCode === UP_ARROW) {
-        h = 0;
-        s = 0;
-        b = 255;
-    }
-
-    if (keyCode === DOWN_ARROW) {
-        line = triangle;
-        fill(191, 4, 99);
-    }
-}
 
 function mousePressed() {
     //strokeWeight(8);
