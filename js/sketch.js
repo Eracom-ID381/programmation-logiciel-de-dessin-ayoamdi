@@ -12,6 +12,7 @@ function setup() {
 
 function draw() {
     strokeWeight(10);
+    stroke(0, 0, 0);
     stroke(h, s, b);
 
     if (mouseIsPressed) {
@@ -133,5 +134,54 @@ function penguinPoints() {
     point(630, 580);
     point(625, 520);
     point(630, 460);
-    point(650, 395);
+    point(650, 395); <<
+    << << < HEAD
+        ===
+        === =
+
+        //texte//
+        strokeWeight(1);
+    textSize(8);
+    fill(15, 0, 100);
+    text('1', 383, 134);
+
+    //
+}
+
+function keyPressed() {
+    if (keyCode === LEFT_ARROW) {
+        s = 0;
+        b = 0;
+    }
+
+    if (keyCode === RIGHT_ARROW) {
+        h = 40;
+        s = 255;
+        b = 255;
+
+    }
+
+    if (keyCode === UP_ARROW) {
+        h = 0;
+        s = 0;
+        b = 255;
+    }
+
+    if (keyCode === DOWN_ARROW) {
+        line = triangle;
+        fill(191, 4, 99);
+    }
+}
+
+function mousePressed() {
+    //strokeWeight(8);
+    //stroke(247, 243, 22);
+    //line(mouseX, mouseY, mouseX, mouseY);
+
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    background(0); >>>
+    >>> > d4fc3051359bcb626a1531a4aac5d4ecac53abb3
 }
