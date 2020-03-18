@@ -1,23 +1,74 @@
+let triangleSize = 20;
+
+let h = 60;
+let s = 255;
+let b = 255;
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     background(232, 254, 252);
-
+    colorMode(HSB, 255);
 }
-
-let h = 100;
-let s = 100;
-let b = 100;
 
 function draw() {
     strokeWeight(10);
     stroke(h, s, b);
 
-    if (mouseIsPressed === true) {
-        line(mouseX, mouseY, pmouseX, pmouseY);
+    if (mouseIsPressed) {
+        // line(mouseX, mouseY, pmouseX, pmouseY);
+        triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
+        triangleSize = triangleSize + 1;
     }
+
+    //texte//
+    strokeWeight(1);
+    textSize(8);
+    fill(15, 0, 100);
+    text('1', 383, 134);
+
+    penguinPoints();
+}
+
+function keyPressed() {
+    if (keyCode === LEFT_ARROW) {
+        s = 0;
+        b = 0;
+    }
+
+    if (keyCode === RIGHT_ARROW) {
+        h = 40;
+        s = 255;
+        b = 255;
+
+    }
+
+    if (keyCode === UP_ARROW) {
+        h = 0;
+        s = 0;
+        b = 255;
+    }
+}
+
+function mousePressed() {
+    //strokeWeight(8);
+    //stroke(247, 243, 22);
+    //line(mouseX, mouseY, mouseX, mouseY);
+
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    background(0);
+}
+
+function mouseReleased() {
+    triangleSize = 20;
+}
+
+function penguinPoints() {
+
     strokeWeight(8);
     stroke(15, 0, 0);
-    colorMode(HSB, 255);
 
     //contour du penguin//
     point(377, 128);
@@ -83,44 +134,4 @@ function draw() {
     point(625, 520);
     point(630, 460);
     point(650, 395);
-
-    //texte//
-    strokeWeight(1);
-    textSize(8);
-    fill(15, 0, 100);
-    text('1', 383, 134);
-
-    //
-}
-
-function keyPressed() {
-    if (keyCode === LEFT_ARROW) {
-        s = 0;
-        b = 0;
-    }
-
-    if (keyCode === RIGHT_ARROW) {
-        h = 40;
-        s = 255;
-        b = 255;
-
-    }
-
-    if (keyCode === UP_ARROW) {
-        h = 0;
-        s = 0;
-        b = 255;
-    }
-}
-
-function mousePressed() {
-    //strokeWeight(8);
-    //stroke(247, 243, 22);
-    //line(mouseX, mouseY, mouseX, mouseY);
-
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-    background(0);
 }
