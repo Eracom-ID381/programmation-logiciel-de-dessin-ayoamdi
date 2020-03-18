@@ -10,13 +10,15 @@ let b = 100;
 
 function draw() {
     strokeWeight(10);
+    stroke(0, 0, 0);
     stroke(h, s, b);
 
     if (mouseIsPressed === true) {
         line(mouseX, mouseY, pmouseX, pmouseY);
     }
+
     strokeWeight(8);
-    stroke(15, 0, 0);
+    stroke(0, 0, 0);
     colorMode(HSB, 255);
 
     //contour du penguin//
@@ -110,6 +112,11 @@ function keyPressed() {
         h = 0;
         s = 0;
         b = 255;
+    }
+
+    if (keyCode === DOWN_ARROW) {
+        line = triangle;
+        fill(191, 4, 99);
     }
 }
 
