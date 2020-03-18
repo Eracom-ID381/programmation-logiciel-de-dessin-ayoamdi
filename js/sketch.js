@@ -134,13 +134,10 @@ function penguinPoints() {
     point(630, 580);
     point(625, 520);
     point(630, 460);
-    point(650, 395); <<
-    << << < HEAD
-        ===
-        === =
+    point(650, 395);
 
-        //texte//
-        strokeWeight(1);
+    //texte//
+    strokeWeight(1);
     textSize(8);
     fill(15, 0, 100);
     text('1', 383, 134);
@@ -182,6 +179,5 @@ function mousePressed() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-    background(0); >>>
-    >>> > d4fc3051359bcb626a1531a4aac5d4ecac53abb3
+    background(0);
 }
