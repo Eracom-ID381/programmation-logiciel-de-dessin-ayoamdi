@@ -3,12 +3,15 @@ let osc, freq, amp;
 let h = 0;
 let s = 0;
 let b = 0;
+let soundPoints;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     colorMode(HSB, 255);
     background(175, 9, 100);
     osc = new p5.Oscillator('sine');
+    soundPoints = loadSound('media/button.mp3', penguinPoints);
+
 }
 
 function draw() {
@@ -17,15 +20,16 @@ function draw() {
 
     if (mouseIsPressed) {
         line(mouseX, mouseY, pmouseX, pmouseY);
+        osc.freq(freq, 0.1);
+        osc.amp(amp, 0.1);
 
     }
 
     penguinPoints();
 
-    freq = map(mouseX, 0, width, 100, 500);
-    freq = map(mouseY, 0, height, 0, 1);
-    osc.freq(freq, 0.1);
-    osc.amp(amp, 0.1);
+    freq = map(mouseX, 0, width, 100, 1000);
+    amp = map(mouseY, 0, height, 0, 1);
+
 
 }
 
@@ -60,7 +64,7 @@ function keyPressed() {
 }
 
 function mousePressed() {
-    osc.Start();
+    osc.start();
 }
 
 function windowResized() {
@@ -74,6 +78,8 @@ function mouseReleased() {
 }
 
 function penguinPoints() {
+
+    //soundPoints.play();
 
     strokeWeight(8);
     stroke(15, 0, 0);
@@ -148,7 +154,16 @@ function penguinPoints() {
     fill(15, 0, 100);
     text('1', 383, 134);
 
+
+
+
 }
+
+
+
+
+
+
 
 //if (keyCode === DOWN_ARROW && mousePressed) {
 //    noStroke();
@@ -157,14 +172,6 @@ function penguinPoints() {
 //    line(mouseX, mouseY, pmouseX, pmouseY) = triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
 //}
 
-
-
-function mousePressed() {
-    //strokeWeight(8);
-    //stroke(247, 243, 22);
-    //line(mouseX, mouseY, mouseX, mouseY);
-
-}
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
