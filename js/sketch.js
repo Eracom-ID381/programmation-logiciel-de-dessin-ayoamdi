@@ -8,7 +8,7 @@ let soundPoints;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     colorMode(HSB, 255);
-    background(175, 9, 100);
+    background(70, 9, 250);
     osc = new p5.Oscillator('sine');
     soundPoints = loadSound('media/button.mp3', penguinPoints);
 
@@ -29,6 +29,28 @@ function draw() {
 
     freq = map(mouseX, 0, width, 100, 1000);
     amp = map(mouseY, 0, height, 0, 1);
+
+    strokeWeight(2);
+    textSize(70);
+    fill(15, 0, 255);
+    text('HOW TO DRAW ', 1000, 70);
+    text('A PENGUIN?', 1000, 140);
+
+    textSize(40);
+    text('Choisis une couleur :', 1000, 280);
+
+    fill(40, 255, 255)
+    rect(1000, 340, 50, 50);
+    text('Flèche de Droite', 1060, 390);
+
+    fill(0, 0, 0)
+    rect(1000, 400, 50, 50);
+    text('Flèche de Gauche', 1060, 450);
+
+    fill(0, 0, 255)
+    rect(1000, 460, 50, 50);
+    text('Fléche du Haut', 1060, 510);
+
 
 
 }
