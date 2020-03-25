@@ -1,12 +1,12 @@
 let mode = 0;
-let triangleSize = 80;
-let rectSize = 80;
+let triangleSize = 30;
+let rectSize = 30;
 let lineSize = 10;
 let osc, freq, amp;
 let h = 0;
 let s = 0;
 let b = 0;
-let soundPoints;
+let soundAntarctica;
 let button;
 
 function setup() {
@@ -14,10 +14,10 @@ function setup() {
     colorMode(HSB, 255);
     background(132, 30, 250);
     osc = new p5.Oscillator('sine');
-    soundPoints = loadSound('media/button.mp3');
-    //cnv.mousePressed(penguinPoints);
+    soundAntarctica = loadSound('media/Antarctica.mp3');
 
-    button = createButton('Vive le COVID');
+
+    button = createButton('HAPPY PENGUIN');
     button.position(19, 19);
     button.mousePressed(buttonRect);
 
@@ -25,26 +25,27 @@ function setup() {
 
 function preload() {
     soundFormats('mp3', 'ogg');
-    soundPoints = loadSound('media/button.mp3');
+    soundPoints = loadSound('media/Antarctica.mp3');
 }
 
 function draw() {
     strokeWeight(lineSize);
     stroke(h, s, b);
+    rectMode(CORNER);
 
     if (mouseIsPressed) {
         if (mode === 0) {
-            
             line(mouseX, mouseY, pmouseX, pmouseY);
         } else if (mode === 1) {
             noStroke();
-            fill(255, 255, 255);
+            fill(240, 40, 249);
             //opacity(0.4);
             triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
-        } else if (mode === 2) { 
+        } else if (mode === 2) {
             noStroke();
-            fill(200, 25, 20);
+            fill(115, 30, 260);
             //opacity(0.4);
+            rectMode(CENTER);
             rect(mouseX, mouseY, rectSize, rectSize);
         }
         osc.freq(freq, 0.1);
@@ -94,18 +95,24 @@ function draw() {
     textSize(30);
     text('Motif:', 1000, 625);
 
+    fill(240, 40, 249);
+    triangle(1000, 670, 1035, 670, 1017.5, 635);
     fill(0, 0, 0);
-    text('Motif triangle', 1000, 670);
+    text('Triangle : F ', 1045, 670);
 
-    text('Motif carré', 1000, 715);
+    fill(115, 30, 260);
+    rect(1000, 680, 35, 35);
+    fill(0, 0, 0);
+    text('Carré : R', 1045, 715);
 
-
+    fill(0, 0, 0);
+    text('Pinceau : Tab', 1000, 760);
 
 }
 
 function keyPressed() {
 
-    if (key === 'w') {
+    if (key === 'w' || key === 'W') {
         s = 0;
         b = 0;
     }
@@ -117,36 +124,40 @@ function keyPressed() {
 
     }
 
-    if (key === 'd') {
+    if (key === 'd' || key === 'D') {
         h = 0;
         s = 0;
         b = 255;
     }
 
-    if (key === 's') {
+    if (key === 's' || key === 'S') {
         h = 132;
         s = 30;
         b = 250;
     }
 
-    if (key === 'e') {
+    if (key === 'e' || key === 'E') {
         lineSize = lineSize + 10;
+        triangleSize = triangleSize + 10;
+        rectSize = rectSize + 10;
     }
 
-    if (key === 'q') {
+    if (key === 'q' || key === 'E') {
         lineSize = lineSize - 10;
+        triangleSize = triangleSize - 10;
+        rectSize = rectSize - 10;
     }
 
-    if (keyCode === LEFT_ARROW) { 
+    if (keyCode === TAB) {
         mode = 0;
     }
 
-    if (key === 'f') {
+    if (key === 'f' || key === 'F') {
         mode = 1;
     }
 
-    if (keyCode === RIGHT_ARROW) {
-        mode = 2;  
+    if (key === 'r' || key === 'R') {
+        mode = 2;
     }
 }
 
@@ -246,9 +257,6 @@ function penguinPoints() {
 }
 
 function buttonRect() {
-    mode = 4;
-    fill(0);
-    rect(width / 2, height / 2, 500, 500);
     soundPoints.play();
 }
 
