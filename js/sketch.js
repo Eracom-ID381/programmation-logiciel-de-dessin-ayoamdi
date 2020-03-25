@@ -1,3 +1,4 @@
+let mode = 0;
 let triangleSize = 80;
 let rectSize = 80;
 let lineSize = 10;
@@ -6,6 +7,7 @@ let h = 0;
 let s = 0;
 let b = 0;
 let soundPoints;
+let button;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -14,6 +16,10 @@ function setup() {
     osc = new p5.Oscillator('sine');
     soundPoints = loadSound('media/button.mp3');
     //cnv.mousePressed(penguinPoints);
+
+    button = createButton('Vive le COVID');
+    button.position(19, 19);
+    button.mousePressed(buttonRect);
 
 }
 
@@ -27,13 +33,25 @@ function draw() {
     stroke(h, s, b);
 
     if (mouseIsPressed) {
-        line(mouseX, mouseY, pmouseX, pmouseY);
+        if (mode === 0) {
+            
+            line(mouseX, mouseY, pmouseX, pmouseY);
+        } else if (mode === 1) {
+            noStroke();
+            fill(255, 255, 255);
+            //opacity(0.4);
+            triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
+        } else if (mode === 2) { 
+            noStroke();
+            fill(200, 25, 20);
+            //opacity(0.4);
+            rect(mouseX, mouseY, rectSize, rectSize);
+        }
         osc.freq(freq, 0.1);
         osc.amp(amp, 0.1);
     }
 
     penguinPoints();
-    rect();
 
     freq = map(mouseX, 0, width, 100, 300);
     amp = map(mouseY, 0, height, 0, 1);
@@ -86,12 +104,13 @@ function draw() {
 }
 
 function keyPressed() {
+
     if (key === 'w') {
         s = 0;
         b = 0;
     }
 
-    if (key === 'a') {
+    if (key === 'a' || key === 'A') {
         h = 40;
         s = 255;
         b = 255;
@@ -118,18 +137,16 @@ function keyPressed() {
         lineSize = lineSize - 10;
     }
 
-    if (key === 'f' && mousePressed) {
-        noStroke();
-        fill(255, 255, 255);
-        opacity(0.4);
-        line = triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
+    if (keyCode === LEFT_ARROW) { 
+        mode = 0;
     }
 
-    if (keyCode === RIGHT_ARROW && mousePressed) {
-        noStroke();
-        fill(200, 25, 20);
-        opacity(0.4);
-        rect(mouseX, mouseY, rectSize, rectSize);
+    if (key === 'f') {
+        mode = 1;
+    }
+
+    if (keyCode === RIGHT_ARROW) {
+        mode = 2;  
     }
 }
 
@@ -228,15 +245,11 @@ function penguinPoints() {
 
 }
 
-function rect() {
-    fill(255, 255, 255);
-    noStroke();
-    rect(320, 320, 50, 50);
-
-    if (mousePressed) {
-        soundPoints.play();
-    }
-
+function buttonRect() {
+    mode = 4;
+    fill(0);
+    rect(width / 2, height / 2, 500, 500);
+    soundPoints.play();
 }
 
 
