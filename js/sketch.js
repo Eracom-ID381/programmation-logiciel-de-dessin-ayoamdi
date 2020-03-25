@@ -1,4 +1,6 @@
 let triangleSize = 80;
+let rectSize = 80;
+let lineSize = 10;
 let osc, freq, amp;
 let h = 0;
 let s = 0;
@@ -8,85 +10,133 @@ let soundPoints;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     colorMode(HSB, 255);
-    background(70, 9, 250);
+    background(132, 30, 250);
     osc = new p5.Oscillator('sine');
-    soundPoints = loadSound('media/button.mp3', penguinPoints);
+    soundPoints = loadSound('media/button.mp3');
+    //cnv.mousePressed(penguinPoints);
 
 }
 
+function preload() {
+    soundFormats('mp3', 'ogg');
+    soundPoints = loadSound('media/button.mp3');
+}
+
 function draw() {
-    strokeWeight(10);
+    strokeWeight(lineSize);
     stroke(h, s, b);
 
     if (mouseIsPressed) {
         line(mouseX, mouseY, pmouseX, pmouseY);
         osc.freq(freq, 0.1);
         osc.amp(amp, 0.1);
-
     }
 
     penguinPoints();
+    rect();
 
-    freq = map(mouseX, 0, width, 100, 1000);
+    freq = map(mouseX, 0, width, 100, 300);
     amp = map(mouseY, 0, height, 0, 1);
 
     strokeWeight(2);
-    textSize(70);
+    textSize(80);
     fill(15, 0, 255);
     text('HOW TO DRAW ', 1000, 70);
     text('A PENGUIN?', 1000, 140);
 
-    textSize(40);
-    text('Choisis une couleur :', 1000, 280);
+    textSize(30);
+    text('Choisis une couleur :', 1000, 240);
 
     fill(40, 255, 255)
-    rect(1000, 340, 50, 50);
-    text('Flèche de Droite', 1060, 390);
+    rect(1000, 270, 35, 35);
+    text('A', 1045, 305);
 
     fill(0, 0, 0)
-    rect(1000, 400, 50, 50);
-    text('Flèche de Gauche', 1060, 450);
+    rect(1000, 315, 35, 35);
+    text('W', 1045, 350);
 
     fill(0, 0, 255)
-    rect(1000, 460, 50, 50);
-    text('Fléche du Haut', 1060, 510);
+    rect(1000, 360, 35, 35);
+    text('D', 1045, 395);
+
+    fill(132, 30, 250)
+    rect(1000, 405, 35, 35);
+    text('S', 1045, 440);
+
+    fill(15, 0, 255);
+    textSize(30);
+    text('Pinceau:', 1000, 490);
+
+    fill(0, 0, 0);
+    text('Augmenter la taille : E', 1000, 535);
+
+    text('Diminuer la taille : Q', 1000, 580);
+
+    fill(15, 0, 255);
+    textSize(30);
+    text('Motif:', 1000, 625);
+
+    fill(0, 0, 0);
+    text('Motif triangle', 1000, 670);
+
+    text('Motif carré', 1000, 715);
 
 
 
 }
 
 function keyPressed() {
-    if (keyCode === LEFT_ARROW) {
+    if (key === 'w') {
         s = 0;
         b = 0;
     }
 
-    if (keyCode === RIGHT_ARROW) {
+    if (key === 'a') {
         h = 40;
         s = 255;
         b = 255;
 
     }
 
-    if (keyCode === UP_ARROW) {
+    if (key === 'd') {
         h = 0;
         s = 0;
         b = 255;
     }
 
-    if (keyCode === BACKSPACE) {
-        h = 232;
-        s = 254;
-        b = 252;
+    if (key === 's') {
+        h = 132;
+        s = 30;
+        b = 250;
     }
 
-    if (keyCode === "W") {
-        strokeWeight = strokeWeight + 8;
+    if (key === 'e') {
+        lineSize = lineSize + 10;
+    }
+
+    if (key === 'q') {
+        lineSize = lineSize - 10;
+    }
+
+    if (key === 'f' && mousePressed) {
+        noStroke();
+        fill(255, 255, 255);
+        opacity(0.4);
+        line = triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
+    }
+
+    if (keyCode === RIGHT_ARROW && mousePressed) {
+        noStroke();
+        fill(200, 25, 20);
+        opacity(0.4);
+        rect(mouseX, mouseY, rectSize, rectSize);
     }
 }
 
 function mousePressed() {
     osc.start();
+
+
 }
 
 function windowResized() {
@@ -101,7 +151,7 @@ function mouseReleased() {
 
 function penguinPoints() {
 
-    //soundPoints.play();
+
 
     strokeWeight(8);
     stroke(15, 0, 0);
@@ -176,23 +226,19 @@ function penguinPoints() {
     fill(15, 0, 100);
     text('1', 383, 134);
 
+}
 
+function rect() {
+    fill(255, 255, 255);
+    noStroke();
+    rect(320, 320, 50, 50);
 
+    if (mousePressed) {
+        soundPoints.play();
+    }
 
 }
 
-
-
-
-
-
-
-//if (keyCode === DOWN_ARROW && mousePressed) {
-//    noStroke();
-//    fill(173, 17, 100);
-//    opacity(0.4);
-//    line(mouseX, mouseY, pmouseX, pmouseY) = triangle(mouseX, mouseY - triangleSize, mouseX + triangleSize, mouseY + triangleSize, mouseX - triangleSize, mouseY + triangleSize);
-//}
 
 
 function windowResized() {
