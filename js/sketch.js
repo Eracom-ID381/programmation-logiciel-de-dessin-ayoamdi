@@ -21,11 +21,16 @@ function setup() {
     button.position(19, 19);
     button.mousePressed(buttonRect);
 
+    button = createButton('STOP THE HAPPINESS');
+    button.position(19, 70);
+    button.mousePressed(buttonRect2);
+
 }
 
 function preload() {
     soundFormats('mp3', 'ogg');
     soundPoints = loadSound('media/Antarctica.mp3');
+    setVolume(0.5)
 }
 
 function draw() {
@@ -54,8 +59,11 @@ function draw() {
 
     penguinPoints();
 
-    freq = map(mouseX, 0, width, 100, 300);
+    freq = map(mouseX, 0, width, 100, 200);
     amp = map(mouseY, 0, height, 0, 1);
+
+
+    rectMode(CORNER);
 
     strokeWeight(2);
     textSize(80);
@@ -258,6 +266,10 @@ function penguinPoints() {
 
 function buttonRect() {
     soundPoints.play();
+}
+
+function buttonRect2() {
+    soundPoints.stop();
 }
 
 
